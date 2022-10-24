@@ -34,8 +34,8 @@ runs:
       - name: Try to fail
         shell: bash
         run: |
-          if [[ ! ${{steps.issue_status.outputs.status}} =~ "In Review" ]]; then
-            echo "Your issue on JIRA still not Active."
+          if [[ ! ${{steps.issue_status.outputs.status}} =~ "In Progress" ]]; then
+            echo "Your issue on JIRA still not in progress."
             exit 1
           fi 
 branding:
