@@ -8,7 +8,7 @@ inputs:
     default: 'knawat'
   jira-token:  
     description: 'Jira Token'
-    required: true
+    required: false
 runs:
   using: "composite"
   steps:
