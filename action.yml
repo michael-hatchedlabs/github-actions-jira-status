@@ -1,27 +1,17 @@
 name: 'Jira Check Issue Status'
 description: 'check the Jira issue status'
-author: 'Mahmoud Almasri'
+author: 'Michael Hakim'
 inputs:
   organization-name: 
     description: 'The name of the organization on Jira'
     required: true
-    default: 'knawat'
+    default: 'hatchedlabs'
   jira-token:  
     description: 'Jira Token'
     required: false
 runs:
   using: "composite"
   steps:
-      - name: Extract Issue name
-        shell: bash
-        run: |
-          if [[ "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f1)" =~ (feature|hotfix|bugfix) && ! "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f2)" =~ [A-Z]+-[0-9]+ ]]; then
-            echo "Your PR is not connected to an issue on Jira, please create an issue for it."
-            exit 1
-          else
-            echo "##[set-output name=name;]$(echo ${GITHUB_HEAD_REF} | grep -Eo '[A-Z]+-[0-9]+')"
-          fi 
-        id: issue_name
       - name: Get Issue Status
         shell: bash
         run: |
