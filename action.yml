@@ -16,7 +16,7 @@ runs:
         shell: bash
         run: |
           if [[ "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f1)" =~ (feature|hotfix|bugfix) && ! "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f2)" =~ [A-Z]+-[0-9]+ ]]; then
-            echo "Your PR is not connected to an issue on Jira, please create an issur for it."
+            echo "Your PR is not connected to an issue on Jira, please create an issue for it."
             exit 1
           else
             echo "##[set-output name=name;]$(echo ${GITHUB_HEAD_REF} | grep -Eo '[A-Z]+-[0-9]+')"
@@ -34,7 +34,7 @@ runs:
       - name: Try to fail
         shell: bash
         run: |
-          if [[ ! ${{steps.issue_status.outputs.status}} =~ "Done" ]]; then
+          if [[ ! ${{steps.issue_status.outputs.status}} =~ "In Review" ]]; then
             echo "Your issue on JIRA still not Active."
             exit 1
           fi 
