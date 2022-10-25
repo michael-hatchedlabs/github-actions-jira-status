@@ -25,7 +25,7 @@ runs:
       - name: Get Issue Status
         shell: bash
         run: |
-          Response=$(curl --location --request GET "https://${{ inputs.organization-name }}.atlassian.net/browse/${{steps.issue_name.outputs.name}}?fields=status" \
+          Response=$(curl --location --request GET "https://${{ inputs.organization-name }}.atlassian.net/browse/"HLINFR-152"" \
           --header 'Accept: application/json' \
           --header "Authorization: ${{ inputs.jira-token }}" )
            echo "##[set-output name=status;]$(echo $Response | jq '.fields.status.name')"
