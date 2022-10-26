@@ -38,6 +38,7 @@ runs:
         shell: bash
         run: |
           Response=$(curl \
+          -s \
           --location \
           --header 'Accept: application/json' \
           --user ${{ inputs.jira-user }}:${{ inputs.jira-token }} \
