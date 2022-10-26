@@ -19,20 +19,21 @@ runs:
         shell: bash
         run: |
           echo "${GITHUB_HEAD_REF}"
-      - name: Extract Issue name
-        shell: bash
-        run: |
-          if [[ "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f1)" =~ (feature|hotfix|bugfix) && ! "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f2)" =~ [A-Z]+-[0-9]+ ]]; then
-            echo "Your PR is not connected to an issue on Jira, please create an issue for it."
-            exit 1
-          else
-            echo "##[set-output name=name;]$(echo ${GITHUB_HEAD_REF} | grep -Eo '[A-Z]+-[0-9]+')"
-          fi 
-        id: issue_name
-      - name: Test
-        shell: bash
-        run: |
-          echo "issuename: ${{steps.issue_name.outputs.name}}"
+          echo "hlinfr-152-jirastatus-action" | grep -Eo "[aA-zZ]+-[0-9]+" | tr '[:lower:]' '[:upper:]'
+      # - name: Extract Issue name
+      #   shell: bash
+      #   run: |
+      #     if [[ "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f1)" =~ (feature|hotfix|bugfix) && ! "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f2)" =~ [A-Z]+-[0-9]+ ]]; then
+      #       echo "Your PR is not connected to an issue on Jira, please create an issue for it."
+      #       exit 1
+      #     else
+      #       echo "##[set-output name=name;]$(echo ${GITHUB_HEAD_REF} | grep -Eo '[A-Z]+-[0-9]+')"
+      #     fi 
+      #   id: issue_name
+      # - name: Test
+      #   shell: bash
+      #   run: |
+      #     echo "issuename: ${{steps.issue_name.outputs.name}}"
       # - name: Get Issue Status
       #   shell: bash
       #   run: |
