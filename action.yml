@@ -40,6 +40,7 @@ runs:
           Response=$(curl --location --request GET "https://${{ inputs.organization-name }}.atlassian.net/rest/api/3/issue/${{steps.issue_name.outputs.name}}?fields=status" \
           --header 'Accept: application/json' \
           --user ${{ inputs.jira-user }}:${{ inputs.jira-token }} )
+           echo ${RESPONSE}
            echo "##[set-output name=status;]$(echo $Response | jq '.fields.status.name')"
            echo $Response | jq '.fields.status.name'
         id: issue_status
