@@ -25,9 +25,9 @@ runs:
       - name: Get Issue Status
         shell: bash
         run: |
-          Response=$(curl --location --request GET "https://${{ inputs.organization-name }}.atlassian.net/rest/api/2/issue/{issueIdOrKey}?fields=status" \
+          Response=$(curl --location --request GET "https://${{ inputs.organization-name }}.atlassian.net/rest/api/3/issue/${{steps.issue_name.outputs.name}}?fields=status" \
           --header 'Accept: application/json' \
-          --header "Authorization: ${{ secrets.JIRA_TOKEN }}" )
+          --header "Authorization: ${{ inputs.jira-token }}" )
            echo "##[set-output name=status;]$(echo $Response | jq '.fields.status.name')"
            echo $Response | jq '.fields.status.name'
         id: issue_status
