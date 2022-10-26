@@ -15,32 +15,36 @@ inputs:
 runs:
   using: "composite"
   steps:
-      - name: Extract Issue name
+      - name: Test
         shell: bash
         run: |
-          if [[ "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f1)" =~ (feature|hotfix|bugfix) && ! "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f2)" =~ [A-Z]+-[0-9]+ ]]; then
-            echo "Your PR is not connected to an issue on Jira, please create an issue for it."
-            exit 1
-          else
-            echo "##[set-output name=name;]$(echo ${GITHUB_HEAD_REF} | grep -Eo '[A-Z]+-[0-9]+')"
-          fi 
-        id: issue_name
-      - name: Get Issue Status
-        shell: bash
-        run: |
-          Response=$(curl --location --request GET "https://${{ inputs.organization-name }}.atlassian.net/rest/api/3/issue/${{steps.issue_name.outputs.name}}?fields=status" \
-          --header 'Accept: application/json' \
-          --user ${{ inputs.jira-user }}:${{ inputs.jira-token }} )
-           echo "##[set-output name=status;]$(echo $Response | jq '.fields.status.name')"
-           echo $Response | jq '.fields.status.name'
-        id: issue_status
-      - name: Try to fail
-        shell: bash
-        run: |
-          if [[ ! ${{steps.issue_status.outputs.status}} =~ "Done" ]]; then
-            echo "Your issue on JIRA still not Active."
-            exit 1
-          fi 
+          echo "Got here"
+      # - name: Extract Issue name
+      #   shell: bash
+      #   run: |
+      #     if [[ "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f1)" =~ (feature|hotfix|bugfix) && ! "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f2)" =~ [A-Z]+-[0-9]+ ]]; then
+      #       echo "Your PR is not connected to an issue on Jira, please create an issue for it."
+      #       exit 1
+      #     else
+      #       echo "##[set-output name=name;]$(echo ${GITHUB_HEAD_REF} | grep -Eo '[A-Z]+-[0-9]+')"
+      #     fi 
+      #   id: issue_name
+      # - name: Get Issue Status
+      #   shell: bash
+      #   run: |
+      #     Response=$(curl --location --request GET "https://${{ inputs.organization-name }}.atlassian.net/rest/api/3/issue/${{steps.issue_name.outputs.name}}?fields=status" \
+      #     --header 'Accept: application/json' \
+      #     --user ${{ inputs.jira-user }}:${{ inputs.jira-token }} )
+      #      echo "##[set-output name=status;]$(echo $Response | jq '.fields.status.name')"
+      #      echo $Response | jq '.fields.status.name'
+      #   id: issue_status
+      # - name: Try to fail
+      #   shell: bash
+      #   run: |
+      #     if [[ ! ${{steps.issue_status.outputs.status}} =~ "Done" ]]; then
+      #       echo "Your issue on JIRA still not Active."
+      #       exit 1
+      #     fi 
 branding:
   icon: 'check-circle'  
   color: 'orange'
