@@ -27,7 +27,7 @@ runs:
             echo "Your PR is not connected to an issue on Jira, please create an issue for it."
             exit 1
           else
-            echo "##[set-output name=name;]$(echo ${GITHUB_HEAD_REF} | grep -Eo '[aA-zZ]+-[0-9]+' | tr '[:lower:]' '[:upper:])"
+            echo "##[set-output name=name;]$(echo ${GITHUB_HEAD_REF} | grep -Eo '[aA-zZ]+-[0-9]+' | tr '[:lower:]' '[:upper:]')"
           fi 
         id: issue_name
       - name: Test
