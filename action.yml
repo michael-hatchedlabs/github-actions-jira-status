@@ -37,9 +37,12 @@ runs:
       - name: Get Issue Status
         shell: bash
         run: |
-          Response=$(curl --location --request GET "https://${{ inputs.organization-name }}.atlassian.net/rest/api/3/issue/${{steps.issue_name.outputs.name}}?fields=status" \
+          Response=$(curl \
+          --location \
           --header 'Accept: application/json' \
-          --user ${{ inputs.jira-user }}:${{ inputs.jira-token }} )
+          --user ${{ inputs.jira-user }}:${{ inputs.jira-token }} \
+          --request GET \
+          "https://${{ inputs.organization-name }}.atlassian.net/rest/api/3/issue/${{steps.issue_name.outputs.name}}?fields=status")
            echo ${Response}
            echo "##[set-output name=status;]$(echo $Response | jq '.fields.status.name')"
            echo $Response | jq '.fields.status.name'
