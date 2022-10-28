@@ -6,11 +6,8 @@ inputs:
     description: 'The name of the organization on Jira'
     required: true
     default: 'gianteagle'
-  jira-token:  
-    description: 'Jira Token'
-    required: true
-  jira-user:
-    description: 'Jira User'
+  jira-auth:  
+    description: 'Jira User + Token Combined'
     required: true
 runs:
   using: "composite"
@@ -41,7 +38,7 @@ runs:
           -s \
           --location \
           --header 'Accept: application/json' \
-          --user ${{ inputs.jira-user }}:${{ inputs.jira-token }} \
+          --user ${{ inputs.jira-auth }} \
           --request GET \
           "https://${{ inputs.organization-name }}.atlassian.net/rest/api/3/issue/${{steps.issue_name.outputs.name}}?fields=status")
            echo ${Response}
