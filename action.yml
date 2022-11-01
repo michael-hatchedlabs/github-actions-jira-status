@@ -11,7 +11,7 @@ inputs:
     required: true
   jira-user:
     description: 'Jira User'
-    required: true
+    required: false
 runs:
   using: "composite"
   steps:
@@ -41,7 +41,7 @@ runs:
           -s \
           --location \
           --header 'Accept: application/json' \
-          --user ${{ inputs.jira-user }}:${{ inputs.jira-token }} \
+          --user ${{ inputs.jira-token }} \
           --request GET \
           "https://${{ inputs.organization-name }}.atlassian.net/rest/api/3/issue/${{steps.issue_name.outputs.name}}?fields=status")
            echo ${Response}
